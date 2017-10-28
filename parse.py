@@ -6,7 +6,7 @@ def prepare(s):
     return s.lower().translate(str.maketrans("ęóąśłżźćńö","eoaslzzcno")).replace('  ', ' ').strip()
 
 def ulica_prepare(s):
-    return re.sub("o;", "o", re.sub("^(ulica|ul\.|al\.|os.|aleja|al\.|osiedle|ks\.|.\.|prez\.)\s", "", s))
+    return re.sub("o;", "o", re.sub("^(ulica|ul\.|al\.|os.|aleja|al\.|al|osiedle|ks\.|.\.|prez\.|gen\.|rtm\.|sw\.|dr\.|pl\.)\s", "", s))
 
 def numer_prepare(s):
     return re.sub(" ", "", s)
