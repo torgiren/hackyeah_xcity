@@ -11,8 +11,8 @@ ulice = []
 log_file = open("parse.log", "a")
 time_start = None
 time_stop = None
-matched = Queue()
-not_matched = Queue()
+matched = []
+not_matched = []
 
 def get_headers(filename):
     result = {}
@@ -32,7 +32,7 @@ def numer_prepare(s):
     return re.sub(" ", "", s).split("/")[0].split("-")[0]
 #    return s.replace("ulica", "").replace("al.","").replace("gen.","").replace("aleja", "").replace("os. ","").replace("osiedle ","").strip()
 
-def process(data, offset, dane_raw):
+def process(data, offset):
     for d in enumerate(data):
         index = d[0] + offset
         match = False
@@ -41,10 +41,10 @@ def process(data, offset, dane_raw):
                 match = True
                 dane_raw[index].append(s[2])
                 dane_raw[index].append(s[3])
-                matched.put(dane_raw[index])
+                matched.append(dane_raw[index])
                 break
         if not match:
-            not_matched.put(dane_raw[index])
+            not_matched.append(dane_raw[index])
     return 0
 
 def load_slownik(filepath):
@@ -75,50 +75,50 @@ def licz():
     log_file.write("Zaczynam prace o: {date}\n".format(date=time_start))
     log_file.flush()
     
-    l = len(dane)
-    threads_num = 8
-    split_num = round(l/threads_num + 0.5)
-    threads = []
+#    l = len(dane)
+#    threads_num = 8
+#    split_num = round(l/threads_num + 0.5)
+#    threads = []
     
-    #import threading
-    for i in range(threads_num):
-        print(i*split_num, (i+1)*split_num)
-        t = Process(target=process, args=(dane[i*split_num:(i+1)*split_num],i*split_num,dane_raw))
-        t.start()
-        threads.append(t)
+    process(dane, 0)
+#    for i in range(threads_num):
+#        print(i*split_num, (i+1)*split_num)
+#        t = Process(target=process, args=(dane[i*split_num:(i+1)*split_num],i*split_num,dane_raw))
+#        t.start()
+#        threads.append(t)
     
-    matched_list = []
-    not_matched_list = []
+#    matched_list = []
+#    not_matched_list = []
+#    
+#    allExited = False
+#    while not allExited:
+#        while not matched.empty():
+#            matched_list.append(matched.get())
+#        while not not_matched.empty():
+#            not_matched_list.append(not_matched.get())
+#        allExited = True
+#        for i in threads:
+#            print(i.exitcode)
+#            if i.exitcode is None:
+#                allExited = False
+#        time.sleep(1)
     
-    allExited = False
-    while not allExited:
-        while not matched.empty():
-            matched_list.append(matched.get())
-        while not not_matched.empty():
-            not_matched_list.append(not_matched.get())
-        allExited = True
-        for i in threads:
-            print(i.exitcode)
-            if i.exitcode is None:
-                allExited = False
-        time.sleep(1)
     
     
-    
-    log_file.write("Matched: {match}\n".format(match=len(matched_list)))
-    log_file.write("Not matched: {not_match}\n".format(not_match=len(not_matched_list)))
+    log_file.write("Matched: {match}\n".format(match=len(matched)))
+    log_file.write("Not matched: {not_match}\n".format(not_match=len(not_matched)))
     log_file.flush()
     
     with open("out.csv","w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(dane_header+["X","Y"])
-        for r in matched_list:
+        for r in matched:
             writer.writerow(r)
     
     with open("bad.csv","w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(dane_header)
-        for r in not_matched_list:
+        for r in not_matched:
             writer.writerow(r)
     
     time_stop = datetime.datetime.now()
