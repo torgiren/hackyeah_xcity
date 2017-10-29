@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>665</width>
+    <height>472</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="start_button">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>288</y>
+     <width>201</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="combo_ulica">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>208</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="combo_numer">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>248</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ulica">
+   <property name="geometry">
+    <rect>
+     <x>202</x>
+     <y>212</y>
+     <width>160</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wybierz kolumnę z ulicą:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_numer">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>251</y>
+     <width>201</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wybierz kolumne z numerem:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ulica_2">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>50</y>
+     <width>161</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wybierz plik wejściowy:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="input_button">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>50</y>
+     <width>110</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Przeglądaj</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ulica_3">
+   <property name="geometry">
+    <rect>
+     <x>274</x>
+     <y>116</y>
+     <width>181</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wybierz plik ze słownikiem:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="slownik_button">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>115</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Przeglądaj</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="input_path">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>81</y>
+     <width>521</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>31</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="slownik_path">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>150</y>
+     <width>521</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>31</height>
+    </size>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
