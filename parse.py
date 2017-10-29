@@ -19,7 +19,7 @@ def get_headers(filename):
     with open(filename, "r") as f:
         row = csv.reader(f, delimiter=";").__next__()
     for i in enumerate(row):
-        result[i[1]] = i[0]
+        result[i[1].replace(u"\ufeff","")] = i[0]
     return result
         
 def prepare(s):
