@@ -52,7 +52,7 @@ def load_slownik(filepath):
     with open(filepath, "r") as f:
         ulice = [(prepare(x[5]),numer_prepare(prepare(x[1])),x[10], x[11]) for x in csv.reader(f, delimiter=";")]
 
-    log_file.write("Wczytywanie uluc: {ulice} ulic\n".format(ulice=len(ulice)))
+    log_file.write("Wczytywanie ulic: {ulice} ulic\n".format(ulice=len(ulice)))
     log_file.flush()
 
 def load_dane(filename, street_col, number_col):
