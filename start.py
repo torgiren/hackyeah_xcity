@@ -3,6 +3,8 @@ import sys
 import parse 
 from PyQt4 import QtCore, QtGui
 from template import Ui_Form
+from PyQt4.QtGui import QSound
+import time
 
     
 
@@ -30,6 +32,11 @@ class MyForm(QtGui.QMainWindow):
                 self.change_slownik = True
 
         if self.change_slownik is True and self.change_input is True:
+            print("Hejo")
+            s = QSound("ding.wav")
+            print(s)
+            s.play()
+            time.sleep(2)
             self.ui.start_button.setEnabled(True)
         
         return input_file_path
