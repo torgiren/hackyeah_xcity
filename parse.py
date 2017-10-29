@@ -14,9 +14,11 @@ time_stop = None
 matched = Queue()
 not_matched = Queue()
 
-def get_headers():
+def get_headers(filename):
     result = {}
-    for i in enumerate(dane_header):
+    with open(filename, "r") as f:
+        row = csv.reader(f, delimiter=";").__next__()
+    for i in enumerate(row):
         result[i[1]] = i[0]
     return result
         
