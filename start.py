@@ -50,6 +50,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.combo_ulica.activated.connect(self.onActivated_dane1)
         self.ui.combo_numer.activated.connect(self.onActivated_dane2)
         self.ui.start_button.clicked.connect(self.start_prog)
+        self.ui.pushButton_exit.clicked.connect(self.close)
 
         self.input_path = None
         self.slownik_path = None
@@ -62,10 +63,12 @@ class MyForm(QtGui.QMainWindow):
     def onActivated_dane2(self, text):
         self.number_col = self.ui.combo_numer.itemData(text)
     def start_prog(self):
+        self.ui.start_button.setEnabled(False)
+        self.ui.label_status.setText("Rozpoczynam dzialanie")
         parse.load_slownik(self.slownik_path)
         parse.load_dane(self.input_path, self.street_col, self.number_col)
         parse.licz() 
-
+        self.ui.label_status.setText("Zakonczylem dzialanie. Status w logu")
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     myapp = MyForm()
