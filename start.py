@@ -32,11 +32,6 @@ class MyForm(QtGui.QMainWindow):
                 self.change_slownik = True
 
         if self.change_slownik is True and self.change_input is True:
-            print("Hejo")
-            s = QSound("ding.wav")
-            print(s)
-            s.play()
-            time.sleep(2)
             self.ui.start_button.setEnabled(True)
         
         return input_file_path
@@ -69,6 +64,8 @@ class MyForm(QtGui.QMainWindow):
         parse.load_dane(self.input_path, self.street_col, self.number_col)
         parse.licz() 
         self.ui.label_status.setText("Zakonczylem dzialanie. Status w logu")
+        QSound("ding.wav").play()
+        time.sleep(1)
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     myapp = MyForm()
