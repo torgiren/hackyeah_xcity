@@ -16,7 +16,7 @@ not_matched = Queue()
 
 def get_headers(filename):
     result = {}
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf-8") as f:
         row = csv.reader(f, delimiter=";").__next__()
     for i in enumerate(row):
         result[i[1].replace(u"\ufeff","")] = i[0]
@@ -32,7 +32,7 @@ def numer_prepare(s):
     return re.sub(" ", "", s).split("/")[0].split("-")[0]
 #    return s.replace("ulica", "").replace("al.","").replace("gen.","").replace("aleja", "").replace("os. ","").replace("osiedle ","").strip()
 
-def process(data, offset):
+def process(data, offset, dane_raw):
     for d in enumerate(data):
         index = d[0] + offset
         match = False
@@ -49,7 +49,7 @@ def process(data, offset):
 
 def load_slownik(filepath):
     global ulice
-    with open(filepath, "r") as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         ulice = [(prepare(x[5]),numer_prepare(prepare(x[1])),x[10], x[11]) for x in csv.reader(f, delimiter=";")]
 
     log_file.write("Wczytywanie ulic: {ulice} ulic\n".format(ulice=len(ulice)))
@@ -59,7 +59,7 @@ def load_dane(filename, street_col, number_col):
     global dane_header
     global dane_raw
     global dane
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="utf-8") as f:
         csv_reader = csv.reader(f, delimiter=";")
         dane_header = csv_reader.__next__()
         for row in csv_reader:
@@ -83,7 +83,7 @@ def licz():
     #import threading
     for i in range(threads_num):
         print(i*split_num, (i+1)*split_num)
-        t = Process(target=process, args=(dane[i*split_num:(i+1)*split_num],i*split_num))
+        t = Process(target=process, args=(dane[i*split_num:(i+1)*split_num],i*split_num,dane_raw))
         t.start()
         threads.append(t)
     
@@ -109,13 +109,13 @@ def licz():
     log_file.write("Not matched: {not_match}\n".format(not_match=len(not_matched_list)))
     log_file.flush()
     
-    with open("out.csv","w") as f:
+    with open("out.csv","w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(dane_header+["X","Y"])
         for r in matched_list:
             writer.writerow(r)
     
-    with open("bad.csv","w") as f:
+    with open("bad.csv","w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(dane_header)
         for r in not_matched_list:
