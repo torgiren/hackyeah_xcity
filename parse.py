@@ -3,7 +3,7 @@ import datetime
 import csv
 import re
 import time
-from multiprocessing import Process, Queue
+#from multiprocessing import Process, Queue
 dane = []
 dane_raw = []
 dane_header = None
@@ -29,7 +29,7 @@ def ulica_prepare(s):
     return re.sub("o;", "o", re.sub("^(ulica|ul\.|al\.|os.|aleja|al\.|al|osiedle|ks\.|.\.|prez\.|gen\.|rtm\.|sw\.|dr\.|pl\.)\s", "", s))
 
 def numer_prepare(s):
-    return re.sub(" ", "", s).split("/")[0].split("-")[0]
+    return re.sub("(<|>)","", re.sub(" ", "", s).split("/")[0].split("-")[0])
 #    return s.replace("ulica", "").replace("al.","").replace("gen.","").replace("aleja", "").replace("os. ","").replace("osiedle ","").strip()
 
 def process(data, offset):
